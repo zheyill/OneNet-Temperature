@@ -1,0 +1,95 @@
+<!-- index.wxml -->
+<view class="page-container">
+<!-- 头部天气 -->
+<view class="header-container">
+    <view class="header-1">
+      <view>空气质量</view>
+      <view>气温</view>
+      <view>广州市—越秀区</view>
+    </view>
+    <view class="header-2">
+      <view>80优</view>
+      <view>20℃</view>
+      <view>晴天</view>
+    </view>
+    <view class="header-3">
+      <view>早晚温差大，注意保暖</view>
+    </view>
+  </view>
+
+  <!-- 中间数据 -->
+  <view class="data-container">
+    <!-- 数据项：设备状态 -->
+    <view class="data-item device-status">
+      <image src="/图片/设备状态.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">设备状态</view>
+        <view class="data-value" wx:if="{{device_status.data.list[0].status == 1}}">在线</view>
+        <view class="data-value" wx:elif="{{device_status.data.list[0].status != 1}}" style="color: red;">离线</view>
+      </view>
+    </view>
+
+    <!-- 数据项：传感器状态 -->
+    <view class="data-item sensor-status">
+      <image src="/图片/传感器.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">传感器状态</view>
+        <view class="data-value" wx:if="{{onenet_data.data[4].value == 0}}">正常</view>
+        <view class="data-value" wx:elif="{{onenet_data.data[6].value != 0}}" style="color: red;">异常</view>
+      </view>
+    </view>
+
+    <!-- 数据项：环境温度 -->
+    <view class="data-item environment-temperature">
+      <image src="/图片/温度.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">环境温度</view>
+        <view class="data-value">{{onenet_data.data[7].value}}℃</view>
+      </view>
+    </view>
+
+    <!-- 数据项：环境湿度 -->
+    <view class="data-item environment-humidity">
+      <image src="/图片/湿度.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">环境湿度</view>
+        <view class="data-value">{{onenet_data.data[4].value}}%</view>
+      </view>
+    </view>
+
+    <!-- 数据项：加湿器开关 -->
+    <view class="data-item humidifier-switch">
+      <image src="/图片/加湿器.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">加湿器开关</view>
+        <view class="data-value">
+          <switch checked="{{switch1_checked}}" bindchange="onenet_set_device_property" data-param="JiaShiQi" color="#3d77ff"/>
+        </view>
+      </view>
+    </view>
+
+    <!-- 数据项：窗帘开关 -->
+    <view class="data-item curtain-switch">
+      <image src="/图片/窗帘.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">窗帘开关</view>
+        <view class="data-value">
+          <switch checked="{{switch2_checked}}" bindchange="onenet_set_device_property" data-param="ChuangLian" color="#3d77ff"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 灯光亮度控制 -->
+  <view class="light-control-container">
+    <view class="data-item light-brightness">
+      <image src="/图片/灯.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">灯光亮度</view>
+        <view class="data-value">
+          <slider min="0" max="100" step="1" value="{{switch3_checked}}" bindchange="onenet_set_device_property" data-param="DiaoDeng_Control" show-value/>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
